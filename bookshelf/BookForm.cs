@@ -1,22 +1,19 @@
 ﻿using System;
-using System.Drawing;
 using System.Globalization;
 using System.Speech.Synthesis;
 using System.Windows.Forms;
+using System.Collections;
 using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace bookshelf
 {
     public partial class BookForm : Form
     {
 
-        private static SpeechSynthesizer _synth;
-        private Form1 _form;
-        private bool _button2Clicked = false;
-        public TextBox TextBox1;
-        public TextBox TextBox2;
+        static SpeechSynthesizer _synth;
+        bool _button2Clicked = false;
+        ArrayList _list;
+        int _page = 1;
 
         public BookForm()
         {
@@ -32,19 +29,28 @@ namespace bookshelf
             textBox1.WordWrap = true;
             textBox2.WordWrap = true;
 
-            //textBox2.MaxLength = 100;
+            label1.Text = _page.ToString();
+            label2.Text =(_page + 1).ToString();
+
+            PreviosPageButton.Enabled = false;
 
             _synth = new SpeechSynthesizer();
             _synth.SetOutputToDefaultAudioDevice();
-            _synth.GetInstalledVoices(new CultureInfo("ru-RU"));         
+            _synth.GetInstalledVoices(new CultureInfo("ru-RU")); 
+            
         }
 
         #region -- Methods & Events --
+
         private void button1_Click(object sender, System.EventArgs e)
         {
             if (!textBox1.Text.Equals(String.Empty))
             {
-                _synth.SpeakAsync(TextBox1.Text);
+                _synth.SpeakAsync(textBox1.Text);
+                if (!textBox2.Text.Equals(String.Empty))
+                {
+                    _synth.SpeakAsync(textBox2.Text);
+                }
             }
             if (_button2Clicked == true)
             {
@@ -57,26 +63,57 @@ namespace bookshelf
             _synth.Pause();  
             _button2Clicked = true;
         }
-
-        private void BookForm_Load(object sender, EventArgs e)
+        private void Synth_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
         {
-            if (!TextBox1.Text.Equals(String.Empty))
-            {
-                textBox1.Text = TextBox1.Text;
-                textBox2.Text = TextBox2.Text;
-            }
+            
         }
-        //public void ReadInFile()
-        //{
-        //    textBox1.Text = File.ReadLines(FullPathToProject(@"Books\Boots.txt"), Encoding.UTF8).First();
-        //    textBox2.Text = File.ReadLines(FullPathToProject(@"Books\Boots.txt"), Encoding.UTF8).Skip(15).First();
-        //}
-        //public static string FullPathToProject(string path)
-        //{
-        //    string workingDirectory = Environment.CurrentDirectory;
-        //    string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
-        //    return Path.Combine(projectDirectory, path);
-        //}
+
+        public void ReadInFile(string path)
+        {
+            double numberLine = 0;
+            string temp = "";
+            _list = new ArrayList();
+            foreach (string curentLine in File.ReadLines(path))
+            {
+                temp += curentLine;
+                if (numberLine % 15 == 0)
+                {
+                    _list.Add(temp);
+                    temp = "";
+                }
+                numberLine++;
+            }
+            textBox1.Text = _list[_page].ToString();
+            textBox2.Text = _list[_page + 1].ToString();
+        }
+
+        private void NextPage_Click(object sender, EventArgs e)
+        {
+            _page += 2;
+            PreviosPageButton.Enabled = true;
+                //_page += 2;
+            textBox1.Text = _list[_page].ToString();
+            textBox2.Text = _list[_page + 1].ToString();
+            label1.Text = _page.ToString();
+            label2.Text = (_page + 1).ToString();
+        }
+
+        private void PreviosPage_Click(object sender, EventArgs e)
+        {
+            NextPageButton.Enabled = true;
+            _page -= 2;
+            if (_page >= 0)
+            {
+                textBox1.Text = _list[_page].ToString();
+                textBox2.Text = _list[_page + 1].ToString();
+                label1.Text = _page.ToString();
+                label2.Text = (_page + 1).ToString();
+            }
+            if (_page <= 0)
+
+                PreviosPageButton.Enabled = false;
+        }
+
         #endregion
     }
 }
