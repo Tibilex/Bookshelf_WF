@@ -58,6 +58,7 @@
             this.bookPictureBox27 = new System.Windows.Forms.PictureBox();
             this.bookPictureBox26 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.bookPictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bookPictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bookPictureBox3)).BeginInit();
@@ -203,6 +204,7 @@
             this.pictureBox1.TabIndex = 13;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Visible = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // bookPictureBox14
             // 
@@ -334,6 +336,15 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(266, 464);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 29;
+            this.label1.Text = "label1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -341,6 +352,7 @@
             this.BackColor = System.Drawing.Color.Tan;
             this.BackgroundImage = global::bookshelf.Properties.Resources.shelf;
             this.ClientSize = new System.Drawing.Size(800, 605);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.bookPictureBox26);
             this.Controls.Add(this.bookPictureBox27);
@@ -375,6 +387,7 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bookshelf";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.bookPictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bookPictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bookPictureBox3)).EndInit();
@@ -404,6 +417,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.bookPictureBox27)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bookPictureBox26)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -438,6 +452,7 @@
         private System.Windows.Forms.PictureBox bookPictureBox27;
         private System.Windows.Forms.PictureBox bookPictureBox26;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label1;
     }
 }
 
