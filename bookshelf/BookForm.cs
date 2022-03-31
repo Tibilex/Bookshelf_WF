@@ -110,8 +110,9 @@ namespace bookshelf
                 label2.Text = (_page + 1).ToString();
             }
             if (_page <= 0)
-
+            {
                 PreviosPageButton.Enabled = false;
+            }
         }
 
         #endregion
