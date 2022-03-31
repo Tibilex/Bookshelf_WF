@@ -4,8 +4,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using bookshelf.Properties;
-using System.Linq;
-using System.Collections.Generic;
+using System.Collections;
 
 namespace bookshelf
 {
@@ -16,7 +15,7 @@ namespace bookshelf
         Random randomBook = new Random();
         OpenFileDialog openFileDialog1 = new OpenFileDialog();
         bool _addCheck = false;
-        //private static SpeechSynthesizer synth;
+        ArrayList _list;
         BookForm bookForm = new BookForm();
         TextBox _text1 = new TextBox(); 
         TextBox _text2 = new TextBox();
@@ -91,8 +90,7 @@ namespace bookshelf
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                _text1.Text = File.ReadAllText(openFileDialog1.FileName, Encoding.UTF8);
-                bookForm.TextBox1 = this._text1;
+                bookForm.ReadInFile(openFileDialog1.FileName);
                 _addCheck = true;
             }
 
@@ -110,80 +108,83 @@ namespace bookshelf
             if ((sender as PictureBox).Name == "bookPictureBox1")
             {
                 BookForm bookForm = new BookForm();
-                ReadInFile(FullPathToProject(@"Books\Boots.txt"));
-                bookForm.TextBox1 = this._text1;
-                bookForm.TextBox2 = this._text2;
+                bookForm.ReadInFile(FullPathToProject(@"Books\mertvye-dushi.txt"));
                 bookForm.ShowDialog();
             }
             if ((sender as PictureBox).Name == "bookPictureBox2")
             {
+                BookForm bookForm = new BookForm();
+                bookForm.ReadInFile(FullPathToProject(@"Books\idiot.txt"));
                 bookForm.ShowDialog();
             }
             if ((sender as PictureBox).Name == "bookPictureBox3")
             {
-
+                BookForm bookForm = new BookForm();
+                bookForm.ReadInFile(FullPathToProject(@"Books\geroy-nashego-vremeni.txt"));
+                bookForm.ShowDialog();
             }
             if ((sender as PictureBox).Name == "bookPictureBox4")
             {
-
+                BookForm bookForm = new BookForm();
+                bookForm.ReadInFile(FullPathToProject(@"Books\belye-nochi.txt"));
+                bookForm.ShowDialog();
             }
             if ((sender as PictureBox).Name == "bookPictureBox5")
             {
-                label1.Text = "XXXXXXX";
+                BookForm bookForm = new BookForm();
+                bookForm.ReadInFile(FullPathToProject(@"Books\reyder-si.txt"));
+                bookForm.ShowDialog();
             }
             if ((sender as PictureBox).Name == "bookPictureBox6")
             {
-                label1.Text = "XXXXXXX";
+                BookForm bookForm = new BookForm();
+                bookForm.ReadInFile(FullPathToProject(@"Books\put-lekarya.txt"));
+                bookForm.ShowDialog();
             }
             if ((sender as PictureBox).Name == "bookPictureBox7")
             {
-                label1.Text = "XXXXXXX";
+                BookForm bookForm = new BookForm();
+                bookForm.ReadInFile(FullPathToProject(@"Books\geksalogiya.txt"));
+                bookForm.ShowDialog();
             }
             if ((sender as PictureBox).Name == "bookPictureBox8")
             {
-                label1.Text = "XXXXXXX";
+                BookForm bookForm = new BookForm();
+                bookForm.ReadInFile(FullPathToProject(@"Books\ohotnik-dart.txt"));
+                bookForm.ShowDialog();
             }
             if ((sender as PictureBox).Name == "bookPictureBox9")
             {
-                label1.Text = "XXXXXXX";
+                BookForm bookForm = new BookForm();
+                bookForm.ReadInFile(FullPathToProject(@"Books\my.txt"));
+                bookForm.ShowDialog();
             }
             if ((sender as PictureBox).Name == "bookPictureBox10")
             {
-                label1.Text = "XXXXXXX";
+                BookForm bookForm = new BookForm();
+                bookForm.ReadInFile(FullPathToProject(@"Books\graf-monte-kristo.txt"));
+                bookForm.ShowDialog();
             }
             if ((sender as PictureBox).Name == "bookPictureBox11")
             {
-                label1.Text = "XXXXXXX";
+                BookForm bookForm = new BookForm();
+                bookForm.ReadInFile(FullPathToProject(@"Books\evgeniy-onegin.txt"));
+                bookForm.ShowDialog();
             }
             if ((sender as PictureBox).Name == "bookPictureBox12")
             {
-                label1.Text = "XXXXXXX";
+                BookForm bookForm = new BookForm();
+                bookForm.ReadInFile(FullPathToProject(@"Books\bratya-karamazovy.txt"));
+                bookForm.ShowDialog();
             }
             if ((sender as PictureBox).Name == "bookPictureBox13")
             {
-                label1.Text = "XXXXXXX";
+                BookForm bookForm = new BookForm();
+                bookForm.ReadInFile(FullPathToProject(@"Books\bibliya.txt"));
+                bookForm.ShowDialog();
             }
-        }
-        public void ReadInFile(string path)
-        {
-            _text1.Text = File.ReadAllText(path, Encoding.UTF8);
-            _text2.Text = File.ReadAllText(path, Encoding.UTF8);
-        }
-        public async void ReadInFile2(string path)
-        {
-            using (StreamReader sr = new StreamReader(path))
-            {
-                List<string> lines = new List<string>();
-                while (!sr.EndOfStream)
-                {
-                   lines.Add(await sr.ReadLineAsync());
-                }
-
-            }
-
         }
 
         #endregion
-
     }
 }
